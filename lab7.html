@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+</head>
+<body>
+<p id="result1"></p>
+<p id="result2"></p>
+<p id="result3"></p>
+<p id="result4"></p>
+<p id="result5"></p>
+<script>
+const arr1 = [1, 2, 3];
+const arr2 = arr1.map(item => (item + 2)*3);
+document.getElementById('result1').textContent = `Array: ${arr2}`;
+		
+const users = [
+  { name: 'Mark',  isAdmin: true  },
+  { name: 'John',  isAdmin: false  },
+
+];
+const admin = users.filter(user => user.isAdmin); 
+if (admin.length > 0) {document.getElementById('result2').textContent = `Admin's name is ${admin[0].name}`; } 
+else { document.getElementById('result2').textContent = 'No admin'; }
+
+const scores = [4, 3, 5, 2, 4, 5, 3];
+const sum = scores.reduce((accumulator, currentValue) => accumulator + currentValue);
+const average = sum / scores.length;
+document.getElementById('result3').textContent = `Average: ${average}`;
+
+
+function arrayProcess(arr, filterFunc) {
+  const result = arr.map((el) => {
+    if (filterFunc(el)) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  return result;
+}
+
+const arr = ["Apple", "Orange", "Ice", "V"];
+const arrayLen = arrayProcess(arr, (el) => el.length > 3);
+document.getElementById('result4').textContent = `Array len: ${arrayLen}`;
+fetch('https://647f6d92c246f166da90beac.mockapi.io/users')
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    const filteredData = data.filter((user) => user.age > 30); 
+    document.getElementById('result5').textContent = `Пользователи старше 30: ${JSON.stringify(filteredData)} `;
+  });
+
+</script>
+</body>

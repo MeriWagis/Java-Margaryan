@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Калькулятор / Среднее значение / Проверка номера </title>
+  </head>
+  <body>
+    <form>
+	    <h3>Калькулятор</h3>
+      <label for="num1">Первое число:</label>
+      <input type="number" id="num1">
+      <label for="num2">Второе число:</label>
+      <input type="number" id="num2">
+      <label for="operator">Оператор:</label>
+      <select id="operator">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+      </select>
+      <button type="button" onclick="calculate()">Рассчитать!</button>
+    </form>
+    <p id="result"></p>
+		    <h3>Среднее значение</h3>
+	<p>Введите элементы массива (через запятую):</p>
+<input type="text" id="input">
+
+<button onclick="average()">Рассчитать среднее</button>
+
+<p id="result2"></p>
+	    <h3>Проверка номера</h3>
+<p>Введите номер телефона:</p>
+<input type="tel" id="phone">
+
+<button onclick="checkPhone()">Проверить номер</button>
+
+<p id="result3"></p>
+
+
+
+    <script>
+      let add = (num1, num2) => num1 + num2;
+      let subtract = (num1, num2) => num1 - num2;
+      let multiply = (num1, num2) => num1 * num2;
+      let divide = (num1, num2) => num1 / num2;
+
+      let calculate = () => {
+        let num1 = parseFloat(document.getElementById('num1').value);
+        let num2 = parseFloat(document.getElementById('num2').value);
+        let operator = document.getElementById('operator').value;
+        let result = 0;
+
+        switch(operator) {
+          case '+':
+            result = add(num1, num2);
+            break;
+          case '-':
+            result = subtract(num1, num2);
+            break;
+          case '*':
+            result = multiply(num1, num2);
+            break;
+          case '/':
+            result = divide(num1, num2);
+            break;
+          default:
+            result = 'Неправильный знак операции!';
+        }
+
+        document.getElementById('result').innerHTML = result;
+      }
+	  
+	  
+	  	class ArrayAverage {
+		constructor(arr) {
+			this.arr = arr;
+		}
+
+		getAverage = () => {
+			const sum = this.arr.reduce((acc, curr) => acc + curr, 0);
+			return sum / this.arr.length;
+		}
+	}
+
+	const average = () => {
+		const input = document.getElementById('input').value;
+		const arr = input.split(',').map(Number);
+		const arrayAverage = new ArrayAverage(arr);
+		document.getElementById('result2').textContent = `Среднее значение: ${arrayAverage.getAverage()}`;
+	}
+	
+	const checkPhone = () => {
+		const phone = document.getElementById('phone').value;
+		let result = '';
+		if (phone[0] !== '+') {
+			result = 'Номер телефона должен начинаться со знака "+"';
+		} else if (phone.length !== 12) {
+			result = 'Номер телефона должен содержать 12 цифр и + в начале';
+		} else {
+			result = 'Номер телефона введен корректно';
+		}
+		document.getElementById('result3').textContent = result;
+	}
+	
+    </script>
+  </body>
+</html>
